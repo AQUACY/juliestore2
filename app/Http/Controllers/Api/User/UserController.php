@@ -27,4 +27,22 @@ class UserController extends Controller
             'permissions' => $permissions->pluck('name'),
         ]);
     }
+    public function getUsers()
+    {
+        // Retrieve all users from the database
+        $users = User::all();
+
+        // Prepare the response data
+        $userData = $users->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+                'user_name' => $user->user_name,
+                'email' => $user->email,
+            ];
+        });
+
+        // Return the JSON response with the list of users
+        return response()->json(['users' => $userData]);
+    }
 }

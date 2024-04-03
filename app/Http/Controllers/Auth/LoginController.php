@@ -22,8 +22,8 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         // make the whole demo during new login in demosite. comment this portion on production
-        $seeder = new DevDemo();
-        $seeder->run();
+        // $seeder = new DevDemo();
+        // $seeder->run();
 
         $credentials = $request->validate([
             'email' => 'required|email',

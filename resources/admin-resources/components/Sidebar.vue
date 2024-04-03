@@ -119,7 +119,7 @@ const navlinks = [
             {
                 label: "users",
                 link: "/admin/users",
-                permission: "view_user",
+                permission: "view_users",
             },
             {
                 label: "warehouse",

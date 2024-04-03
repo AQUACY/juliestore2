@@ -13,6 +13,8 @@ import AddNewButton from "../../components/buttons/AddNewButton.vue";
 import FilterButton from "../../components/buttons/FilterButton.vue";
 import BulkDeleteButton from "../../components/buttons/BulkDeleteButton.vue";
 import AddPayment from "../payment/AddPayment.vue";
+// import EditSale from "./EditSale.vue";
+// import ViewSale from "./ViewSale.vue";
 
 const loading = ref(false);
 const filterTab = ref(true);

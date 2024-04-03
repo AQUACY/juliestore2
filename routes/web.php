@@ -29,12 +29,12 @@ Route::get('/', function () {
 })->name('home');
 
 // create demo site
-Route::get('/demo', function () {
-    $seeder = new DevDemo();
-    $seeder->run();
+// Route::get('/demo', function () {
+//     $seeder = new DevDemo();
+//     $seeder->run();
 
-    return redirect('admin');
-});
+//     return redirect('admin');
+// });
 
 // All Auth Related Route
 Route::get('/register', [RegisterController::class, 'registrationForm'])->name('registrationForm');
@@ -42,6 +42,15 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::get('/login', [LoginController::class, 'loginForm'])->name('loginForm');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Handling All cashier Routes
+Route::get('/cashier/{any?}', function () {
+    if (Auth::check()) {
+        return view('cashier.app');
+    }
+
+    return redirect('login');
+})->where('any', '.*')->name('cashier');
 
 // Handling All Admin Routes
 Route::get('/admin/{any?}', function () {
@@ -57,6 +66,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // User
     Route::get('/api/users/authenticated-user', [UserController::class, 'getAuthenticatedUser']);
+    Route::get('/api/users', [UserController::class, 'getUsers']);
 
     // Dashboard Overview
     Route::get('/api/dashboard-report', [DashboardController::class, 'getDashboardOverview']);

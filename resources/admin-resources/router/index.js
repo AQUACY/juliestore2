@@ -6,6 +6,19 @@ const router = createRouter({
 
     routes: [
         {
+            path: "/cashier",
+            name: "cashier",
+            component: () => import("../views/Cashier.vue"),
+            children: [
+                // dashboard route
+                {
+                    name: "dashboard",
+                    path: "",
+                    component: () =>
+                        import("../modules/dashboard/Dashboard.vue"),
+                },]
+        },
+        {
             path: "/admin",
             name: "admin",
             component: () => import("../views/Admin.vue"),
@@ -128,6 +141,7 @@ const router = createRouter({
                 },
             ],
         },
+
     ],
 });
 

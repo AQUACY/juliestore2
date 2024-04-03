@@ -3,7 +3,7 @@ import formatValidationErrors from "../../utils/format-validation-errors";
 import { defineStore } from "pinia";
 import { useNotificationStore } from "../../components/shared/notification/notificationStore";
 
-export const useWarehouseStore = defineStore("warehouse", {
+export const useuserStore = defineStore("users", {
     state: () => ({
         current_page: 1,
         total_pages: 0,
@@ -11,7 +11,7 @@ export const useWarehouseStore = defineStore("warehouse", {
 
         q_name: "",
 
-        warehouses: [],
+        users: [],
 
         edit_warehouse_id: null,
         view_warehouse_id: null,
@@ -36,17 +36,19 @@ export const useWarehouseStore = defineStore("warehouse", {
             return new Promise((resolve, reject) => {
                 axios
                     .get(
-                        `/api/warehouses?page=${page}&per_page=${per_page}&q_name=${q_name}`
+                        `/api/users?page=${page}&per_page=${per_page}&q_name=${q_name}`
                     )
                     .then((response) => {
-                        this.warehouses = response.data.data;
+                        // this.users = response.data.data;
+                                              
                         if (response.data.meta) {
                             this.total_pages = response.data.meta.last_page;
                             this.current_page = response.data.meta.current_page;
                             this.per_page = response.data.meta.per_page;
                             this.q_name = q_name;
                         }
-                        resolve(this.warehouses);
+                        resolve(this.users);
+                       
                     })
                     .catch((errors) => {
                         reject(errors);
@@ -57,9 +59,25 @@ export const useWarehouseStore = defineStore("warehouse", {
         fetchWarehousesList() {
             return new Promise((resolve, reject) => {
                 axios
-                    .get(`/api/warehouses`)
+                    .get(`/api/users`)
                     .then((response) => {
                         resolve(response.data.data);
+                        console.log('this is all users',response.data.data.data)
+                        // this.users = response.data.data
+                    })
+                    .catch((errors) => {
+                        reject(errors);
+                    });
+            });
+        },
+        fetchAllusers() {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get(`/api/users`)
+                    .then((response) => {
+                        resolve(response.data.data);
+                        console.log('this is for all users',response)
+                        // this.users = response.data.data
                     })
                     .catch((errors) => {
                         reject(errors);
@@ -70,7 +88,7 @@ export const useWarehouseStore = defineStore("warehouse", {
         async fetchWarehouse(id) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get(`/api/warehouses/${id}`)
+                    .get(`/api/users/${id}`)
                     .then((response) => {
                         this.current_warehouse_item = response.data.data;
                         resolve(response.data.data);
